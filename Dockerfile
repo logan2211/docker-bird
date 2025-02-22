@@ -25,7 +25,7 @@ RUN set -eux \
     && ./configure \
         --prefix=/usr/ \
         --sysconfdir=/etc/bird/ \
-        --localstatedir=/var/ \
+        --runstatedir=/run/bird \
         --enable-libssh \
     && make -j $(nproc) \
     && make install \
@@ -46,7 +46,8 @@ RUN set -eux \
         libreadline8 \
         libssh-4 \
         iproute2 iputils-ping traceroute \
-    && rm -rf /var/lib/apt/lists/* /var/log/*
+    && rm -rf /var/lib/apt/lists/* /var/log/* \
+    && mkdir -p /run/bird
 
 EXPOSE 179/tcp
 
